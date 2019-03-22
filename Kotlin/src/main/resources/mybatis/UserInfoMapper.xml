@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.user.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.module.user.model.UserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+    <result column="user_identity_card" property="userIdentityCard" jdbcType="VARCHAR" />
+    <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR" />
+    <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+    <result column="user_birthday" property="userBirthday" jdbcType="VARCHAR" />
+    <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
+    <result column="user_sign" property="userSign" jdbcType="VARCHAR" />
+    <result column="push_id" property="pushId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, user_pwd, user_mobile, user_icon, user_real_name, user_identity_card, 
+    user_nick_name, user_gender, user_birthday, user_address, user_sign,push_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.module.user.model.UserInfo"  useGeneratedKeys="true" keyProperty="id">
+    insert into user_info (user_name, user_pwd,
+      user_mobile, user_icon, user_real_name, 
+      user_identity_card, user_nick_name, user_gender, 
+      user_birthday, user_address, user_sign,push_id
+      )
+    values (#{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR},
+      #{userMobile,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, #{userRealName,jdbcType=VARCHAR}, 
+      #{userIdentityCard,jdbcType=VARCHAR}, #{userNickName,jdbcType=VARCHAR}, #{userGender,jdbcType=VARCHAR}, 
+      #{userBirthday,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{userSign,jdbcType=VARCHAR},#{pushId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.user.model.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
+      <if test="userIcon != null" >
+        user_icon,
+      </if>
+      <if test="userRealName != null" >
+        user_real_name,
+      </if>
+      <if test="userIdentityCard != null" >
+        user_identity_card,
+      </if>
+      <if test="userNickName != null" >
+        user_nick_name,
+      </if>
+      <if test="userGender != null" >
+        user_gender,
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday,
+      </if>
+      <if test="userAddress != null" >
+        user_address,
+      </if>
+      <if test="userSign != null" >
+        user_sign,
+      </if>
+      <if test="pushId != null" >
+        push_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userIcon != null" >
+        #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentityCard != null" >
+        #{userIdentityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickName != null" >
+        #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userSign != null" >
+        #{userSign,jdbcType=VARCHAR},
+      </if>
+      <if test="pusId != null" >
+        #{pusId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.user.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        user_real_name = #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentityCard != null" >
+        user_identity_card = #{userIdentityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickName != null" >
+        user_nick_name = #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        user_gender = #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null" >
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userSign != null" >
+        user_sign = #{userSign,jdbcType=VARCHAR},
+      </if>
+      <if test="pushId != null" >
+        push_id = #{pushId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.user.model.UserInfo" >
+    update user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_icon = #{userIcon,jdbcType=VARCHAR},
+      user_real_name = #{userRealName,jdbcType=VARCHAR},
+      user_identity_card = #{userIdentityCard,jdbcType=VARCHAR},
+      user_nick_name = #{userNickName,jdbcType=VARCHAR},
+      user_gender = #{userGender,jdbcType=VARCHAR},
+      user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_sign = #{userSign,jdbcType=VARCHAR},
+      push_id = #{pushId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

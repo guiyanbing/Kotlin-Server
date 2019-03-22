@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.user.dao.GoodsSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.module.user.model.GoodsSku" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_sku_title" property="goodsSkuTitle" jdbcType="VARCHAR" />
+    <result column="goods_sku_content" property="goodsSkuContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_id, goods_sku_title, goods_sku_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_sku
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods_sku
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.module.user.model.GoodsSku" >
+    insert into goods_sku (id, goods_id, goods_sku_title, 
+      goods_sku_content)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsSkuTitle,jdbcType=VARCHAR}, 
+      #{goodsSkuContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.user.model.GoodsSku" >
+    insert into goods_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsSkuTitle != null" >
+        goods_sku_title,
+      </if>
+      <if test="goodsSkuContent != null" >
+        goods_sku_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSkuTitle != null" >
+        #{goodsSkuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSkuContent != null" >
+        #{goodsSkuContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.user.model.GoodsSku" >
+    update goods_sku
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSkuTitle != null" >
+        goods_sku_title = #{goodsSkuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSkuContent != null" >
+        goods_sku_content = #{goodsSkuContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.user.model.GoodsSku" >
+    update goods_sku
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_sku_title = #{goodsSkuTitle,jdbcType=VARCHAR},
+      goods_sku_content = #{goodsSkuContent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectGoodsSkuList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_sku
+    where goods_id = #{goodsId}
+  </select>
+</mapper>

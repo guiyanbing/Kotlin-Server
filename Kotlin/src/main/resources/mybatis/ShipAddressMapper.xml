@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.user.dao.ShipAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.module.user.model.ShipAddress" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ship_user_name" property="shipUserName" jdbcType="VARCHAR" />
+    <result column="ship_user_mobile" property="shipUserMobile" jdbcType="VARCHAR" />
+    <result column="ship_address" property="shipAddress" jdbcType="VARCHAR" />
+    <result column="ship_is_default" property="shipIsDefault" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ship_user_name, ship_user_mobile, ship_address, ship_is_default, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from ship_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ship_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.module.user.model.ShipAddress" >
+    insert into ship_address (id, ship_user_name, ship_user_mobile,
+      ship_address, ship_is_default, user_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{shipUserName,jdbcType=VARCHAR}, #{shipUserMobile,jdbcType=VARCHAR},
+      #{shipAddress,jdbcType=VARCHAR}, #{shipIsDefault,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.user.model.ShipAddress" >
+    insert into ship_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shipUserName != null" >
+        ship_user_name,
+      </if>
+      <if test="shipUserMobile != null" >
+        ship_user_mobile,
+      </if>
+      <if test="shipAddress != null" >
+        ship_address,
+      </if>
+      <if test="shipIsDefault != null" >
+        ship_is_default,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shipUserName != null" >
+        #{shipUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipUserMobile != null" >
+        #{shipUserMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null" >
+        #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipIsDefault != null" >
+        #{shipIsDefault,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.user.model.ShipAddress" >
+    update ship_address
+    <set >
+      <if test="shipUserName != null" >
+        ship_user_name = #{shipUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipUserMobile != null" >
+        ship_user_mobile = #{shipUserMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null" >
+        ship_address = #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipIsDefault != null" >
+        ship_is_default = #{shipIsDefault,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.user.model.ShipAddress" >
+    update ship_address
+    set ship_user_name = #{shipUserName,jdbcType=VARCHAR},
+      ship_user_mobile = #{shipUserMobile,jdbcType=VARCHAR},
+      ship_address = #{shipAddress,jdbcType=VARCHAR},
+      ship_is_default = #{shipIsDefault,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectShipAddressByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from ship_address
+    where user_id = #{userId}
+  </select>
+</mapper>

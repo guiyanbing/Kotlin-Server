@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.user.dao.GoodsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.module.user.model.GoodsInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="goods_default_icon" property="goodsDefaultIcon" jdbcType="VARCHAR" />
+    <result column="goods_default_price" property="goodsDefaultPrice" jdbcType="VARCHAR" />
+    <result column="goods_detail_one" property="goodsDetailOne" jdbcType="VARCHAR" />
+    <result column="goods_detail_two" property="goodsDetailTwo" jdbcType="VARCHAR" />
+    <result column="goods_sales_count" property="goodsSalesCount" jdbcType="INTEGER" />
+    <result column="goods_stock_count" property="goodsStockCount" jdbcType="INTEGER" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_default_sku" property="goodsDefaultSku" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.module.user.model.GoodsInfo" extends="BaseResultMap" >
+    <result column="goods_banner" property="goodsBanner" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, category_id, goods_desc, goods_default_icon, goods_default_price, goods_detail_one, 
+    goods_detail_two, goods_sales_count, goods_stock_count, goods_code, goods_default_sku
+  </sql>
+  <sql id="Blob_Column_List" >
+    goods_banner
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.module.user.model.GoodsInfo" >
+    insert into goods_info (id, category_id, goods_desc, 
+      goods_default_icon, goods_default_price, goods_detail_one, 
+      goods_detail_two, goods_sales_count, goods_stock_count, 
+      goods_code, goods_default_sku, goods_banner
+      )
+    values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{goodsDesc,jdbcType=VARCHAR}, 
+      #{goodsDefaultIcon,jdbcType=VARCHAR}, #{goodsDefaultPrice,jdbcType=VARCHAR}, #{goodsDetailOne,jdbcType=VARCHAR}, 
+      #{goodsDetailTwo,jdbcType=VARCHAR}, #{goodsSalesCount,jdbcType=INTEGER}, #{goodsStockCount,jdbcType=INTEGER}, 
+      #{goodsCode,jdbcType=VARCHAR}, #{goodsDefaultSku,jdbcType=VARCHAR}, #{goodsBanner,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.user.model.GoodsInfo" >
+    insert into goods_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc,
+      </if>
+      <if test="goodsDefaultIcon != null" >
+        goods_default_icon,
+      </if>
+      <if test="goodsDefaultPrice != null" >
+        goods_default_price,
+      </if>
+      <if test="goodsDetailOne != null" >
+        goods_detail_one,
+      </if>
+      <if test="goodsDetailTwo != null" >
+        goods_detail_two,
+      </if>
+      <if test="goodsSalesCount != null" >
+        goods_sales_count,
+      </if>
+      <if test="goodsStockCount != null" >
+        goods_stock_count,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsDefaultSku != null" >
+        goods_default_sku,
+      </if>
+      <if test="goodsBanner != null" >
+        goods_banner,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDefaultIcon != null" >
+        #{goodsDefaultIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDefaultPrice != null" >
+        #{goodsDefaultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailOne != null" >
+        #{goodsDetailOne,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailTwo != null" >
+        #{goodsDetailTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSalesCount != null" >
+        #{goodsSalesCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsStockCount != null" >
+        #{goodsStockCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDefaultSku != null" >
+        #{goodsDefaultSku,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBanner != null" >
+        #{goodsBanner,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.user.model.GoodsInfo" >
+    update goods_info
+    <set >
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDefaultIcon != null" >
+        goods_default_icon = #{goodsDefaultIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDefaultPrice != null" >
+        goods_default_price = #{goodsDefaultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailOne != null" >
+        goods_detail_one = #{goodsDetailOne,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailTwo != null" >
+        goods_detail_two = #{goodsDetailTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSalesCount != null" >
+        goods_sales_count = #{goodsSalesCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsStockCount != null" >
+        goods_stock_count = #{goodsStockCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDefaultSku != null" >
+        goods_default_sku = #{goodsDefaultSku,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBanner != null" >
+        goods_banner = #{goodsBanner,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.module.user.model.GoodsInfo" >
+    update goods_info
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      goods_default_icon = #{goodsDefaultIcon,jdbcType=VARCHAR},
+      goods_default_price = #{goodsDefaultPrice,jdbcType=VARCHAR},
+      goods_detail_one = #{goodsDetailOne,jdbcType=VARCHAR},
+      goods_detail_two = #{goodsDetailTwo,jdbcType=VARCHAR},
+      goods_sales_count = #{goodsSalesCount,jdbcType=INTEGER},
+      goods_stock_count = #{goodsStockCount,jdbcType=INTEGER},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_default_sku = #{goodsDefaultSku,jdbcType=VARCHAR},
+      goods_banner = #{goodsBanner,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.user.model.GoodsInfo" >
+    update goods_info
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      goods_default_icon = #{goodsDefaultIcon,jdbcType=VARCHAR},
+      goods_default_price = #{goodsDefaultPrice,jdbcType=VARCHAR},
+      goods_detail_one = #{goodsDetailOne,jdbcType=VARCHAR},
+      goods_detail_two = #{goodsDetailTwo,jdbcType=VARCHAR},
+      goods_sales_count = #{goodsSalesCount,jdbcType=INTEGER},
+      goods_stock_count = #{goodsStockCount,jdbcType=INTEGER},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_default_sku = #{goodsDefaultSku,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllGoodsList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_info
+    where category_id = #{categoryId}
+  </select>
+
+  <select id="selectGoodsList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_info
+    where category_id = #{categoryId} LIMIT #{beginIndex} ,#{pageSize}
+  </select>
+
+  <select id="selectAllByKeyword" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_info
+    where goods_desc LIKE CONCAT('%', #{keyword}, '%')
+  </select>
+
+  <select id="selectGoodsListByKeyword" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_info
+    where goods_desc LIKE CONCAT('%', #{keyword}, '%') LIMIT #{beginIndex} ,#{pageSize}
+  </select>
+</mapper>

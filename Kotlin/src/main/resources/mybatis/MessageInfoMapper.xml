@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.user.dao.MessageInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.module.user.model.MessageInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="msg_icon" property="msgIcon" jdbcType="VARCHAR" />
+    <result column="msg_title" property="msgTitle" jdbcType="VARCHAR" />
+    <result column="msg_content" property="msgContent" jdbcType="VARCHAR" />
+    <result column="msg_time" property="msgTime" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, msg_icon, msg_title, msg_content, msg_time, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.module.user.model.MessageInfo" >
+    insert into message_info (id, msg_icon, msg_title, 
+      msg_content, msg_time, user_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{msgIcon,jdbcType=VARCHAR}, #{msgTitle,jdbcType=VARCHAR}, 
+      #{msgContent,jdbcType=VARCHAR}, #{msgTime,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.user.model.MessageInfo" >
+    insert into message_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="msgIcon != null" >
+        msg_icon,
+      </if>
+      <if test="msgTitle != null" >
+        msg_title,
+      </if>
+      <if test="msgContent != null" >
+        msg_content,
+      </if>
+      <if test="msgTime != null" >
+        msg_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="msgIcon != null" >
+        #{msgIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTitle != null" >
+        #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContent != null" >
+        #{msgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null" >
+        #{msgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.user.model.MessageInfo" >
+    update message_info
+    <set >
+      <if test="msgIcon != null" >
+        msg_icon = #{msgIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTitle != null" >
+        msg_title = #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContent != null" >
+        msg_content = #{msgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null" >
+        msg_time = #{msgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.user.model.MessageInfo" >
+    update message_info
+    set msg_icon = #{msgIcon,jdbcType=VARCHAR},
+      msg_title = #{msgTitle,jdbcType=VARCHAR},
+      msg_content = #{msgContent,jdbcType=VARCHAR},
+      msg_time = #{msgTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectMessageList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from message_info
+    where user_id = #{userId}
+  </select>
+</mapper>

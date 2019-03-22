@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.user.dao.CartGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.module.user.model.CartGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_desc" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="goods_icon" property="goodsIcon" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="VARCHAR" />
+    <result column="goods_count" property="goodsCount" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="goods_sku" property="goodsSku" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_id, goods_desc, goods_icon, goods_price, goods_count, user_id, goods_sku
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cart_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cart_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.module.user.model.CartGoods" >
+    insert into cart_goods (id, goods_id, goods_desc, 
+      goods_icon, goods_price, goods_count, 
+      user_id, goods_sku)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsDesc,jdbcType=VARCHAR}, 
+      #{goodsIcon,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=VARCHAR}, #{goodsCount,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{goodsSku,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.user.model.CartGoods" >
+    insert into cart_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc,
+      </if>
+      <if test="goodsIcon != null" >
+        goods_icon,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsCount != null" >
+        goods_count,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="goodsSku != null" >
+        goods_sku,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIcon != null" >
+        #{goodsIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null" >
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSku != null" >
+        #{goodsSku,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.user.model.CartGoods" >
+    update cart_goods
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDesc != null" >
+        goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIcon != null" >
+        goods_icon = #{goodsIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null" >
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSku != null" >
+        goods_sku = #{goodsSku,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.user.model.CartGoods" >
+    update cart_goods
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      goods_icon = #{goodsIcon,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      goods_sku = #{goodsSku,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCartGoodsList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from cart_goods
+    where user_id = #{userId}
+  </select>
+
+  <delete id="deleteCartGoods" parameterType="java.util.List">
+  DELETE FROM cart_goods WHERE id IN
+  <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+    #{item}
+  </foreach>
+  </delete>
+</mapper>
